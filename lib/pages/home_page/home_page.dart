@@ -1,4 +1,5 @@
 import 'package:desafio_esig/pages/details_page/details_page.dart';
+import 'package:desafio_esig/widgets/button_navigation_bar/button_navigation_bar.dart';
 import 'package:desafio_esig/widgets/card_home/card_home.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/posts_controller/posts_controller.dart';
@@ -10,6 +11,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = PostsController();
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   _success() {
     return Container(
@@ -26,12 +33,16 @@ class _HomePageState extends State<HomePage> {
               right: 5,
             ),
             child: CardHome(
+              userId: '${posts.userId}',
               id: '${posts.id}',
               title: posts.title,
               ontap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => DetailsPage(
                     id: posts.id.toString(),
+                    userId: posts.userId.toString(),
+                    title: posts.title,
+                    body: posts.body,
                   ),
                 ),
               ),
@@ -87,7 +98,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de posts'),
+        title: const Text('Posts List'),
         centerTitle: true,
       ),
       body: AnimatedBuilder(
@@ -95,6 +106,10 @@ class _HomePageState extends State<HomePage> {
         builder: (ctx, child) {
           return stateManagement(controller.state.value);
         },
+      ),
+      bottomNavigationBar: ButtonNavigationBarHomePage(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
       ),
     );
   }

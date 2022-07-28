@@ -1,9 +1,21 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import '../../controllers/posts_controller/posts_controller.dart';
 
 class DetailsPage extends StatelessWidget {
   final String id;
-  DetailsPage({super.key, required this.id});
+  final String userId;
+  final String title;
+  final String body;
+
+  DetailsPage({
+    super.key,
+    required this.id,
+    required this.userId,
+    required this.title,
+    required this.body,
+  });
 
   final controller = PostsController();
 
@@ -11,27 +23,53 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Details Page'),
+        title: const Text('Details'),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: ListView.builder(
-          itemBuilder: (ctx, index) {
-            var posts = controller.allPosts.elementAt(int.parse(id[index]));
-            print(posts.title[index]);
-            print(posts.body[index]);
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(posts.title),
-                Text(posts.userId.toString()),
-                Text(posts.id.toString()),
-                Text(posts.body),
-              ],
-            );
-          },
+        child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          child: Card(
+            elevation: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Title: $title',
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'User ID: $userId',
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'ID: $id',
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Body: $body',
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

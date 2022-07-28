@@ -1,3 +1,5 @@
+import 'package:desafio_esig/pages/details_page/details_page.dart';
+import 'package:desafio_esig/widgets/card_home/card_home.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/posts_controller/posts_controller.dart';
 
@@ -23,29 +25,13 @@ class _HomePageState extends State<HomePage> {
               left: 5,
               right: 5,
             ),
-            //
-            //
-            //
-            // colocar esse card em outra pasta
-            //  |||||||||||
-            //  VVVVVVVVVVV
-            //
-            child: InkWell(
-              onTap: () {},
-              child: Card(
-                elevation: 4,
-                child: ListTile(
-                  title: Text(
-                    'Post: ${posts.id}',
-                    style: const TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                  subtitle: Text(
-                    'Title: ${posts.title}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                    ),
+            child: CardHome(
+              id: '${posts.id}',
+              title: posts.title,
+              ontap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => DetailsPage(
+                    id: posts.id.toString(),
                   ),
                 ),
               ),

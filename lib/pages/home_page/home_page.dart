@@ -1,7 +1,10 @@
 import 'package:desafio_esig/pages/details_page/details_page.dart';
 import 'package:desafio_esig/widgets/button_navigation_bar/button_navigation_bar.dart';
+import 'package:desafio_esig/widgets/button_navigation_bar_function/button_navigation_bar_function.dart';
 import 'package:desafio_esig/widgets/card_home/card_home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import '../../controllers/posts_controller/posts_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,13 +14,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = PostsController();
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  final function = ButtonNavvigationBarFunction();
+
+  _onItemTapped(int index) {
+    function.onItemTapped(index);
   }
 
+  // SUCCESS
   _success() {
     return Container(
       width: double.infinity,
@@ -36,6 +39,7 @@ class _HomePageState extends State<HomePage> {
               userId: '${posts.userId}',
               id: '${posts.id}',
               title: posts.title,
+              body: posts.body,
               ontap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => DetailsPage(
@@ -53,6 +57,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // ERROR
   _error() {
     return Center(
       child: ElevatedButton(
@@ -64,14 +69,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // LOADING
   _loading() {
     return const Center(child: CircularProgressIndicator());
   }
 
+  // START
   _start() {
     return Container();
   }
 
+  // SWITCH CASE
   stateManagement(PostsState state) {
     switch (state) {
       case PostsState.start:
@@ -107,9 +115,11 @@ class _HomePageState extends State<HomePage> {
           return stateManagement(controller.state.value);
         },
       ),
-      bottomNavigationBar: ButtonNavigationBarHomePage(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
+      bottomNavigationBar: Observer(
+        builder: (_) => ButtonNavigationBarHomePage(
+          selectedIndex: function.selectedIndex, //_selectedIndex,
+          onItemTapped: _onItemTapped,
+        ),
       ),
     );
   }

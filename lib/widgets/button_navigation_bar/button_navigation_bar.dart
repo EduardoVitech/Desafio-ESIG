@@ -29,7 +29,7 @@ class ButtonNavigationBarHomePage extends StatelessWidget {
         ),
       ],
       currentIndex: selectedIndex,
-      selectedItemColor: const Color.fromARGB(255, 39, 3, 83),
+      selectedItemColor: const Color.fromARGB(255, 121, 15, 252),
       onTap: onItemTapped,
     );
   }

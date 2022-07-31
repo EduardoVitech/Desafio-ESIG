@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import '../../controllers/posts_controller/posts_controller.dart';
 
@@ -47,6 +45,13 @@ class DetailsPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Text(
+                    'Body: $body',
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
                     'User ID: $userId',
                     style: const TextStyle(
                       fontSize: 20,
@@ -55,13 +60,6 @@ class DetailsPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     'ID: $id',
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Body: $body',
                     style: const TextStyle(
                       fontSize: 20,
                     ),
